@@ -14,4 +14,6 @@ app.get('/json', (req, res) => {
   });
 });
 
-app.listen(3000, () => console.log('Listening on port 3000'));
+// PORT=5000 node app.js
+const port = process.env.PORT || 3000;
+app.listen(port, () => console.log(`Listening on port ${port}...`));
