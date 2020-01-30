@@ -6,8 +6,14 @@ const server = http.createServer((req, res) => {
     res.end();
   }
 
-  if (req.url === '/hell') {
-    res.write('Hello Hell');
+  if (req.url === '/json') {
+    res.write(
+      JSON.stringify({
+        name: 'Anshu',
+        age: 19,
+        hobby: ['Cooking', 'Singing', 'Reading']
+      })
+    );
     res.end();
   }
 });
