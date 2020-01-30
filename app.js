@@ -1,26 +1,27 @@
 const express = require('express');
 const app = express();
 
+const members = [
+  { id: 1, name: 'Sameer', age: 20 },
+  { id: 2, name: 'Anshu', age: 19 },
+  { id: 3, name: 'Anjali', age: 23 },
+  { id: 4, name: 'Sumit', age: 18 },
+  { id: 5, name: 'Manisha', age: 24 }
+];
 app.get('/', (req, res) => {
   res.send('Hello World');
 });
 
-app.get('/json', (req, res) => {
-  res.send({
-    name: 'Manisha',
-    age: 24,
-    hobby: ['Tailoring', 'Shopping', 'Reading'],
-    engaged: 'Not till now'
-  });
+app.get('/members', (req, res) => {
+  res.send(members);
 });
 
-app.get('/post/:id', (req, res) => {
-  res.send(req.params.id);
-});
-
-app.get('/posts/:year/:month', (req, res) => {
-  // ?search=CallOfDuty
-  res.send(req.query);
+app.get('/member/:id', (req, res) => {
+  const member = members.find(c => c.id === parseInt(req.params.id));
+  if (!member) {
+    res.status(404).send('There is no member with given ID');
+  }
+  res.send(member);
 });
 
 // PORT=5000 node app.js
