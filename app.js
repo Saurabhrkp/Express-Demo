@@ -14,6 +14,10 @@ app.get('/json', (req, res) => {
   });
 });
 
+app.get('/post/:id', (req, res) => {
+  res.send(req.params.id);
+});
+
 // PORT=5000 node app.js
 const port = process.env.PORT || 3000;
 app.listen(port, () => console.log(`Listening on port ${port}...`));
