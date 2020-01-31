@@ -51,6 +51,15 @@ app.get('/member/:id', (req, res) => {
   res.send(member);
 });
 
+app.put('/member/:id', (req, res) => {
+  // Look up for member
+  // If not existing, return 404
+  // Validate
+  // If invalid, return 400 - Bad request
+  // Update member
+  // Return the updated member
+});
+
 // PORT=5000 node app.js
 const port = process.env.PORT || 3000;
 app.listen(port, () => console.log(`Listening on port ${port}...`));
