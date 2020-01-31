@@ -20,18 +20,11 @@ app.get('/members', (req, res) => {
 });
 
 app.post('/members', (req, res) => {
-  const schema = {
-    name: Joi.string()
-      .min(3)
-      .required(),
-    age: Joi.number().required()
-  };
+  const { error } = validateMember(req.body);
 
-  const result = Joi.validate(req.body, schema);
-
-  if (result.error) {
+  if (error) {
     // 400 Bad Request
-    res.status(400).send(result.error.details[0].message);
+    res.status(400).send(error.details[0].message);
     return;
   }
   const member = {
@@ -56,11 +49,11 @@ app.put('/member/:id', (req, res) => {
   if (!member) {
     res.status(404).send('There is no member with given ID');
   }
-  const result = validateMember(req.body);
+  const { error } = validateMember(req.body);
 
-  if (result.error) {
+  if (error) {
     // 400 Bad Request
-    res.status(400).send(result.error.details[0].message);
+    res.status(400).send(error.details[0].message);
     return;
   }
 
