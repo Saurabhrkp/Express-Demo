@@ -61,6 +61,16 @@ app.put('/member/:id', (req, res) => {
   res.send(member);
 });
 
+app.delete('/member/:id', (req, res) => {
+  const member = members.find(c => c.id === parseInt(req.params.id));
+  if (!member) {
+    res.status(404).send('There is no member with given ID');
+  }
+  const index = members.indexOf(member);
+  members.splice(index, 1);
+  res.send(member);
+});
+
 function validateMember(member) {
   const schema = {
     name: Joi.string()
@@ -71,6 +81,7 @@ function validateMember(member) {
 
   return Joi.validate(member, schema);
 }
+
 // PORT=5000 node app.js
 const port = process.env.PORT || 3000;
 app.listen(port, () => console.log(`Listening on port ${port}...`));
