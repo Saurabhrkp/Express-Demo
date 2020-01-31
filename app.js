@@ -1,6 +1,8 @@
 const express = require('express');
 const app = express();
 
+app.use(express.json());
+
 const members = [
   { id: 1, name: 'Sameer', age: 20 },
   { id: 2, name: 'Anshu', age: 19 },
@@ -14,6 +16,16 @@ app.get('/', (req, res) => {
 
 app.get('/members', (req, res) => {
   res.send(members);
+});
+
+app.post('/members', (req, res) => {
+  const member = {
+    id: members.length + 1,
+    name: req.body.name,
+    age: req.body.age
+  };
+  members.push(member);
+  res.send(member);
 });
 
 app.get('/member/:id', (req, res) => {
