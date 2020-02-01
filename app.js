@@ -39,11 +39,8 @@ app.get('/members', (req, res) => {
 app.post('/members', (req, res) => {
   const { error } = validateMember(req.body);
 
-  if (error) {
-    // 400 Bad Request
-    res.status(400).send(error.details[0].message);
-    return;
-  }
+  if (error) return res.status(400).send(error.details[0].message);
+
   const member = {
     id: members.length + 1,
     name: req.body.name,
@@ -55,24 +52,20 @@ app.post('/members', (req, res) => {
 
 app.get('/member/:id', (req, res) => {
   const member = members.find(c => c.id === parseInt(req.params.id));
-  if (!member) {
-    res.status(404).send('There is no member with given ID');
-  }
+
+  if (!member) return res.status(404).send('There is no member with given ID');
+
   res.send(member);
 });
 
 app.put('/member/:id', (req, res) => {
   const member = members.find(c => c.id === parseInt(req.params.id));
-  if (!member) {
-    res.status(404).send('There is no member with given ID');
-  }
+
+  if (!member) return res.status(404).send('There is no member with given ID');
+
   const { error } = validateMember(req.body);
 
-  if (error) {
-    // 400 Bad Request
-    res.status(400).send(error.details[0].message);
-    return;
-  }
+  if (error) return res.status(400).send(error.details[0].message);
 
   member.name = req.body.name;
   res.send(member);
@@ -80,9 +73,9 @@ app.put('/member/:id', (req, res) => {
 
 app.delete('/member/:id', (req, res) => {
   const member = members.find(c => c.id === parseInt(req.params.id));
-  if (!member) {
-    res.status(404).send('There is no member with given ID');
-  }
+
+  if (!member) return res.status(404).send('There is no member with given ID');
+
   const index = members.indexOf(member);
   members.splice(index, 1);
   res.send(member);
