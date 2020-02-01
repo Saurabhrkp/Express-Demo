@@ -9,6 +9,8 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static('public'));
 app.use(helmet());
+
+// NODE_ENV=production npm test
 if (app.get('env') === 'development') {
   app.use(morgan('tiny'));
   console.log('Morgan enabled...');
