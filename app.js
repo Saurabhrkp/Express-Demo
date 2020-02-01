@@ -5,6 +5,9 @@ const express = require('express');
 const logger = require('./logger');
 const app = express();
 
+app.set('view engine', 'pug');
+app.set('views', './views'); // Default
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static('public'));
@@ -26,7 +29,7 @@ const members = [
   { id: 5, name: 'Manisha', age: 24 }
 ];
 app.get('/', (req, res) => {
-  res.send('Hello World');
+  res.render('index', { title: 'My Express App', message: 'Hello World' });
 });
 
 app.get('/members', (req, res) => {
